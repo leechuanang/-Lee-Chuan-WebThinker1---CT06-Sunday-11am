@@ -49,8 +49,73 @@
 		<!-- Key section -->
 		<div class="container py-3 pb-4">
 			<!-- Create An Unordered List with 2 List Items -->
+			<ul class="nav nav-pills">
+
+				<li class="nav-item">
+					<button class="nav-link rounded-pill active" data-bs-toggle="pill" data-bs-target="#scratch">Scratch Projects</button>
+				</li>
+
+				<li class="nav-item">
+					<button class="nav-link rounded-pill" data-bs-toggle="pill" data-bs-target="#canvas">HTML Canvas</button>
+				</li>
+
+			</ul>
 
 			<div class="tab-content">
+
+				<div class="tab-pane fade show active" id="scratch">
+					<iframe src="https://scratch.mit.edu/projects/808392264/embed" title="Monke & Banana" width="485" height="402"></iframe>
+					<iframe src="https://scratch.mit.edu/projects/779856092/embed" title="Platformer Game" width="485" height="402"></iframe>
+				</div>
+
+				<div class="tab-pane fade" id="canvas">
+					<canvas id="canvasBoard" width="800" height="600" class="border border-dark"></canvas>
+					
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-danger active">
+						  <input type="radio" name="options" id="canvasPause" autocomplete="off" checked> Pause Animation
+						</label>
+						<label class="btn btn-success">
+						  <input type="radio" name="options" id="canvasPlay" autocomplete="off"> Play Animation
+						</label>
+					</div>
+
+					<script>
+						const canvas = document.getElementById("canvasBoard");
+						let ctx = canvas.getContext('2d');
+
+						let X = 0
+						let Y = 0
+						let RADIUS = 10;
+						let DX = 5;
+						let DY = 5;
+
+						let drawBall = () => {
+							
+							if(document.getElementById("canvasPlay").checked){
+								ctx.reset()
+								ctx.beginPath();
+								ctx.arc(X, Y, RADIUS, 0, 2 * Math.PI)
+								ctx.fill()
+								ctx.closePath();
+
+								if(X < 0 || X > canvas.width){
+									DX = -DX;
+								}
+								if(Y < 0 || Y > canvas.height){
+									DY = -DY;
+								}
+								X += DX;
+								Y += DY;
+							}
+							
+							requestAnimationFrame(drawBall);
+						}
+
+						drawBall();
+						
+					</script>
+				</div>
 				<!-- Create two tabs for Project Showcase
 	-  The first tab should have
 				- One header of "Monke & Banana" with the following source: https://scratch.mit.edu/projects/808392264/embed (Width 485 & Height 402)
